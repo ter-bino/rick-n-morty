@@ -3,8 +3,6 @@ import { useState } from "react"
 import Character from "./Character"
 
 const CharacterList = () => {
-
-  const [characterComponents, setCharacterComponents] = useState([]);
   //temporary, should come from api
   const [characters, setCharacters] = useState([
     {
@@ -273,14 +271,10 @@ const CharacterList = () => {
     }
   ])
 
-  const cardGr = {
-    display: 'flex'
-  }
-
   return (
     <CardGroup className="d-flex flex-wrap justify-content-around">
       {characters.map((char, index) => {
-            return <Character key={index} character={char}/>
+        return <Character key={index} character={char}/>
       })}
     </CardGroup>
   )
