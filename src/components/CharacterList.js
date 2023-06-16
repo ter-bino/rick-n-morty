@@ -272,11 +272,13 @@ const CharacterList = () => {
   ])
 
   return (
-    <CardGroup className="d-flex flex-wrap justify-content-around">
-      {characters.map((char, index) => {
-        return <Character key={index} character={char}/>
-      })}
-    </CardGroup>
+    <>
+        <CardGroup className="d-flex flex-wrap justify-content-around">
+        {characters.map((char, index) => {
+            return <Character key={index} character={char}/>
+        })}
+        </CardGroup>
+    </>
   )
 }
 

@@ -1,5 +1,6 @@
 import { Card } from "react-bootstrap"
 import { useState } from "react"
+import ContainerHeader from "./ContainerHeader";
 
 const Character = ({character}) => {
 
@@ -31,19 +32,25 @@ const Character = ({character}) => {
   }
 
   const darkerBackground = {
-    backgroundColor: '#222222',
-    color: '#EEEEEE'
+    backgroundColor: '#441155',
+    color: '#EEEEEE',
   }
 
-  const paddedText = {
-    padding: '5px'
+  const textArea = {
+    margin: '10px 0px',
+    padding: '5px',
+    textAlign: 'center',
+    borderRadius: '15px',
+    border: '1px dashed #0F0'
   }
 
   const characterStyling = {
     transform: isHovered ? 'scale(1.05)' : 'scale(1)',
     maxWidth: '450px',
     minWidth: '300px',
+    height: 'fit-content',
     margin: '10px',
+    marginTop: '2em',
     boxShadow: '5px 5px 15px 5px',
     border: '2px dashed black'
   }
@@ -55,22 +62,23 @@ const Character = ({character}) => {
       onMouseLeave={handleMouseLeave}
     >
         <Card>
+        <ContainerHeader title={character.name.toUpperCase()}/>
         <Card.Img variant="top" src={character.image} />
         <Card.Body style={darkBackground}>
-            <Card.Title style={darkBackground}>{character.name.toUpperCase()}</Card.Title>
             <Card.Text style={darkBackground}>
-                <p style={{...darkerBackground, ...paddedText}}>
-                    Status: <span style={{...darkerBackground, ...((()=>{
+                <div style={{...darkerBackground, ...textArea}}>
+                    <span style={{...darkerBackground, ...((()=>{
                         switch(character.status) {
                             case "Alive": return greenText;
                             case "Dead": return redText;
                             case "Unknown": return yellowText;
                         }
                     })())}}>{character.status}</span>
-                </p>
-                <p style={{...darkerBackground, ...paddedText}}>Species: {character.species}</p>
+                </div>
+                <div style={{...darkerBackground, ...textArea}}>{character.species}</div>
                 
-                <p style={{...darkerBackground, ...paddedText}}>Origin: {character.origin.name}</p>
+                <div style={{...darkerBackground, ...textArea}}>Origin: {character.origin.name}</div>
+                <div style={{...darkerBackground, ...textArea}}>Location: {character.location.name}</div>
             </Card.Text>
         </Card.Body>
         </Card>
