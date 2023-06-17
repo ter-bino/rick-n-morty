@@ -4,13 +4,18 @@ const ContainerHeader = ({title}) => {
 
   const containerHeaderStyling = {
     textAlign: "center",
-    marginTop: '-2.25em',
+    marginTop: '-2em',
+    zIndex: '999999'
   }
   
   const titleStyling = {
     backgroundColor: '#525',
+    margin: '0',
     color: 'white',
-    borderRadius: '25px'
+    borderRadius: '25px',
+    whiteSpace: "nowrap",
+    overflow: "hidden",
+    textOverflow: "ellipsis"
   }
   
   return (

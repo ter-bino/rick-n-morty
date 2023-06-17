@@ -1,6 +1,7 @@
 import { Card } from "react-bootstrap"
 import { useState } from "react"
 import ContainerHeader from "./ContainerHeader";
+import styled from "styled-components"
 
 const Character = ({character}) => {
 
@@ -23,7 +24,7 @@ const Character = ({character}) => {
   }
 
   const yellowText = {
-    color: "#0FF"
+    color: "#FF0"
   }
 
   const darkBackground = {
@@ -41,49 +42,63 @@ const Character = ({character}) => {
     padding: '5px',
     textAlign: 'center',
     borderRadius: '15px',
-    border: '1px dashed #0F0'
+    border: '1px dashed #0F0',
+    display: 'block'
   }
 
-  const characterStyling = {
-    transform: isHovered ? 'scale(1.05)' : 'scale(1)',
-    maxWidth: '450px',
-    minWidth: '300px',
-    height: 'fit-content',
-    margin: '10px',
-    marginTop: '2em',
-    boxShadow: '5px 5px 15px 5px',
-    border: '2px dashed black'
+  const hoverStyling = {
+    transform: (isHovered) => ( isHovered ? "scale(1.05)" : "scale(1)")()
+  }
+
+  const imageStyling = {
+    marginTop: '-1em'
   }
   
   return (
-    <div
-      style={characterStyling}
+    <CharacterContainer
+      style = {hoverStyling}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
     >
         <Card>
         <ContainerHeader title={character.name.toUpperCase()}/>
-        <Card.Img variant="top" src={character.image} />
+        <Card.Img variant="top" src={character.image} style={imageStyling}/>
         <Card.Body style={darkBackground}>
             <Card.Text style={darkBackground}>
-                <div style={{...darkerBackground, ...textArea}}>
+                <span style={{...darkerBackground, ...textArea}}>
                     <span style={{...darkerBackground, ...((()=>{
                         switch(character.status) {
                             case "Alive": return greenText;
                             case "Dead": return redText;
-                            case "Unknown": return yellowText;
+                            case "unknown": return yellowText;
                         }
                     })())}}>{character.status}</span>
-                </div>
-                <div style={{...darkerBackground, ...textArea}}>{character.species}</div>
+                </span>
+                <span style={{...darkerBackground, ...textArea}}>{character.species}</span>
                 
-                <div style={{...darkerBackground, ...textArea}}>Origin: {character.origin.name}</div>
-                <div style={{...darkerBackground, ...textArea}}>Location: {character.location.name}</div>
+                <span style={{...darkerBackground, ...textArea}}>Origin: {character.origin.name}</span>
+                <span style={{...darkerBackground, ...textArea}}>Location: {character.location.name}</span>
             </Card.Text>
         </Card.Body>
         </Card>
-    </div>
+    </CharacterContainer>
   )
 }
+
+const CharacterContainer = styled.div`
+  max-width: 380px;
+  min-width: 380px;
+  height: fit-content;
+  margin: 10px;
+  margin-top: 2em;
+  box-shadow: 5px 5px 15px 5px;
+  border: 2px dashed black;
+
+  @media (max-width: 500px) {
+    max-width: 80vw;
+    min-width: 80vw;
+    box-shadow: 0px 2px 4px 2px;
+  }
+  `;
 
 export default Character
