@@ -1,5 +1,3 @@
-import { Card } from "react-bootstrap"
-
 const ContainerHeader = ({title}) => {
 
   const containerHeaderStyling = {
