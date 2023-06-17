@@ -20,6 +20,7 @@ function App() {
   
   const scrollableY = {
     height: '85vh',
+    paddingTop: '20px',
     overflowX: "hidden",
     overflowY: "scroll"
   }
