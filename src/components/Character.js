@@ -47,7 +47,8 @@ const Character = ({character}) => {
   }
 
   const hoverStyling = {
-    transform: (isHovered) => ( isHovered ? "scale(1.05)" : "scale(1)")()
+    transform: isHovered ? "scale(1.05)" : "scale(1)",
+    cursor: 'pointer'
   }
 
   const imageStyling = {

@@ -15,7 +15,7 @@ function App() {
   
   const rootCardStyling = {
     maxHeight: '90vh',
-    backgroundColor: '#8B8',
+    backgroundColor: '#8B8D',
   }
   
   const scrollableY = {
