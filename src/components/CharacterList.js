@@ -27,14 +27,32 @@ const CharacterList = () => {
     fetchData();
   }, [])
 
+  const scrollableY = {
+    height: '85vh',
+    paddingTop: '20px',
+    overflowX: "hidden",
+    overflowY: "scroll"
+  }
+
+  const stickyBottom = {
+    position: 'absolute',
+    bottom: '0',
+    marginBottom: '-1em',
+    width: '100%'
+  }
+
   return (
     <>
-        <Pager  totalPages={pagerInfo.pages} onPageJump={fetchData}/>
-        <CardGroup className="d-flex flex-wrap justify-content-around">
-        {characters.map((char, index) => {
-            return <Character key={index} character={char}/>
-        })}
-        </CardGroup>
+        <div style={scrollableY}>
+          <CardGroup className="d-flex flex-wrap justify-content-around">
+          {characters.map((char, index) => {
+              return <Character key={index} character={char}/>
+          })}
+          </CardGroup>
+        </div>
+        <div style={stickyBottom}>
+          <Pager  totalPages={pagerInfo.pages} onPageJump={fetchData}/>
+        </div>
     </>
   )
 }

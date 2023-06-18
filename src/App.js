@@ -17,12 +17,9 @@ function App() {
     maxHeight: '90vh',
     backgroundColor: '#8B8D',
   }
-  
-  const scrollableY = {
-    height: '85vh',
-    paddingTop: '20px',
-    overflowX: "hidden",
-    overflowY: "scroll"
+
+  const charListConteiner = {
+    position: 'relative'
   }
 
   return (
@@ -30,7 +27,7 @@ function App() {
       <Card style={rootCardStyling}>
         <Card.Body>
           <ContainerHeader title="Rick 'n Morty Characters" />
-          <div style={scrollableY}>
+          <div style={charListConteiner}>
             <CharacterList />
           </div>
         </Card.Body>
