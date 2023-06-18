@@ -1,11 +1,47 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Button, ButtonGroup } from 'react-bootstrap';
 
-const Pager = ({ totalPages, onPageJump }) => {
+const Pager = ({ totalPages, onPageJump, setError }) => {
 
-const [currentPage, setCurrentPage] = useState(1);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [jumpCount, setJumpCount] = useState(0);
 
-const renderPageButtons = () => {
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setJumpCount(0);
+    }, 1000);
+
+    return () => {
+      clearTimeout(timer);
+    };
+  }, [jumpCount]);
+
+  const handlePageJump = (newPage) => {
+    if(currentPage!=newPage) {
+      if(jumpCount < 5) {
+        setJumpCount(prevCount => prevCount + 1);
+        onPageJump(newPage);
+        setCurrentPage(newPage);
+  
+      } else {
+        setError("You're switching pages too fast. Please slow down.")
+      }
+    }
+  }
+
+  const handlePreviousPage = () => {
+    if (currentPage > 1) {
+      handlePageJump(currentPage - 1);
+    }
+  };
+
+  const handleNextPage = () => {
+    if (currentPage < totalPages) {
+      handlePageJump(currentPage + 1);
+    }
+  };
+
+  const renderPageButtons = () => {
     let buttons = [];
     let cPage = currentPage;
 
@@ -15,7 +51,7 @@ const renderPageButtons = () => {
                 <Button
                   key={i}
                   variant = {i===cPage? 'primary': 'secondary'}
-                  onClick = {() => {onPageJump(i); setCurrentPage(i)}}
+                  onClick = {() => {handlePageJump(i)}}
                 >
                   {i}
                 </Button>
@@ -29,7 +65,7 @@ const renderPageButtons = () => {
         buttons.push(
             <Button key={totalPages} 
                 variant="secondary"
-                onClick = {() => {onPageJump(totalPages); setCurrentPage(totalPages)}}>
+                onClick = {() => {handlePageJump(totalPages)}}>
               {totalPages}
             </Button>
         )
@@ -37,7 +73,7 @@ const renderPageButtons = () => {
         buttons.push(
             <Button key={1} 
                 variant="secondary"
-                onClick = {() => {onPageJump(1); setCurrentPage(1)}}>
+                onClick = {() => {handlePageJump(1)}}>
               {1}
             </Button>
         )
@@ -51,7 +87,7 @@ const renderPageButtons = () => {
                 <Button
                   key={i}
                   variant = {i===cPage? 'primary': 'secondary'}
-                  onClick = {() => {onPageJump(i); setCurrentPage(i)}}
+                  onClick = {() => {handlePageJump(i)}}
                 >
                   {i}
                 </Button>
@@ -62,7 +98,7 @@ const renderPageButtons = () => {
             <Button
                 key={1} 
                 variant="secondary"
-                onClick = {() => {onPageJump(1); setCurrentPage(1)}}>
+                onClick = {() => {handlePageJump(1)}}>
               {1}
             </Button>
         )
@@ -76,7 +112,7 @@ const renderPageButtons = () => {
                 <Button
                   key={i}
                   variant = {i===cPage? 'primary': 'secondary'}
-                  onClick = {() => {onPageJump(i); setCurrentPage(i)}}
+                  onClick = {() => {handlePageJump(i)}}
                 >
                   {i}
                 </Button>
@@ -90,27 +126,13 @@ const renderPageButtons = () => {
         buttons.push(
             <Button key={totalPages} 
                 variant="secondary"
-                onClick = {() => {onPageJump(totalPages); setCurrentPage(totalPages)}}>
+                onClick = {() => {handlePageJump(totalPages)}}>
               {totalPages}
             </Button>
         );
     }
 
     return buttons;
-};
-
-  const handlePreviousPage = () => {
-    if (currentPage > 1) {
-      onPageJump(currentPage - 1);
-      setCurrentPage(currentPage - 1);
-    }
-  };
-
-  const handleNextPage = () => {
-    if (currentPage < totalPages) {
-      onPageJump(currentPage + 1);
-      setCurrentPage(currentPage + 1);
-    }
   };
 
   const buttonGroupStyling = {

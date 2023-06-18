@@ -60,7 +60,7 @@ const CharacterList = () => {
         </div>
         <div style={stickyBottom}>
           {error && <Alert variant="danger">{error}</Alert>}
-          <Pager  totalPages={pagerInfo.pages} onPageJump={fetchData}/>
+          <Pager  totalPages={pagerInfo.pages} onPageJump={fetchData} setError={setError}/>
         </div>
     </>
   )
