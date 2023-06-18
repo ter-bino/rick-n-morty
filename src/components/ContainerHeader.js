@@ -7,7 +7,7 @@ const ContainerHeader = ({title}) => {
   }
   
   const titleStyling = {
-    backgroundColor: '#525',
+    backgroundColor: '#537',
     margin: '0',
     color: 'white',
     borderRadius: '25px',
