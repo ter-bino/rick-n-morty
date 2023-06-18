@@ -3,6 +3,9 @@ import { useEffect, useState } from "react"
 import Pager from "./Pager"
 import Character from "./Character"
 import axios from "axios"
+import pLimit from 'p-limit';
+
+const limit = pLimit(1);
 
 const CharacterList = () => {
   const [characters, setCharacters] = useState([]);
@@ -12,18 +15,20 @@ const CharacterList = () => {
 
   const fetchData = async(listPage) => {
     setError('');
-    try {
-        const response = await axios.get("https://rickandmortyapi.com/api/character/?page="+listPage);
-        setCharacters(response.data.results);
-        setPagerInfo(response.data.info);
-    } catch(error) {
-      console.log(error)
-      if (axios.isAxiosError(error)) {
-        setError(`Error fetching characters from page ${listPage}: ` + error.response.data.error);
-      } else {
-        setError(`Error fetching characters from page ${listPage}: ` + error.message);
+    await limit(async () => {
+      try {
+          const response = await axios.get("https://rickandmortyapi.com/api/character/?page="+listPage);
+          setCharacters(response.data.results);
+          setPagerInfo(response.data.info);
+      } catch(error) {
+        console.log(error)
+        if (axios.isAxiosError(error)) {
+          setError(`Error fetching characters from page ${listPage}: ` + error.response.data.error);
+        } else {
+          setError(`Error fetching characters from page ${listPage}: ` + error.message);
+        }
       }
-    }
+    })
   }
 
   useEffect(() => {
