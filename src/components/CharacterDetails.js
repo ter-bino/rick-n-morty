@@ -7,6 +7,34 @@ const CharacterDetails = ({characterId, setError}) => {
   const [showModal, setShowModal] = useState(false)
   const [character, setCharacter] = useState({})
 
+
+  const transparent = {
+    backgroundColor: 'transparent',
+    opacity: '0 !important'
+  }
+
+  const modalHeader = {
+    backgroundColor: '#444',
+    color: '#DDDDDD'
+  }
+
+  const modalBody = {
+    backgroundColor: '#8B8D',
+    color: '#222',
+    fontSize: '1.5em',
+    padding: '10px 50px'
+  }
+
+  const textArea = {
+    margin: '10px 0px',
+    padding: '5px',
+    borderRadius: '15px',
+    border: '1px dashed #0F0',
+    display: 'block',
+    backgroundColor: '#441155',
+    color: '#EEEEEE',
+  }
+
   useEffect(()=>{
     if(characterId) {
       fetchCharacter(characterId);
@@ -29,47 +57,43 @@ const CharacterDetails = ({characterId, setError}) => {
   }
 
   return (
-    <div>
-        <Modal show={showModal}>
-        <Modal.Header closeButton onClick={()=>setShowModal(false)}>
+    <>
+        <Modal style={transparent} show={showModal}>
+        <Modal.Header style={modalHeader} closeButton onClick={()=>setShowModal(false)}>
             <Modal.Title>Character Details</Modal.Title>
         </Modal.Header>
-        <Modal.Body>
-            <Card>
-            <Card.Body>
-                Name
-                <Card>
-                    : {character.name}
-                </Card>
-                Status
-                <Card>
-                    : {character.status}
-                </Card>
-                Gender
-                <Card>
-                    : {character.gender}
-                </Card>
-                Species
-                <Card>
-                    : {character.species}
-                </Card>
-                Origin
-                <Card>
-                    : {character.origin? character.origin.name: ''}
-                </Card>
-                Last Seen
-                <Card>
-                    : {character.location? character.location.name: ''}
-                </Card>
-                Record Creation Date/Time
-                <Card>
-                    : {character.created}
-                </Card>
-            </Card.Body>
+        <Modal.Body style={modalBody}>
+            Name
+            <Card style={textArea}>
+                : {character.name}
+            </Card>
+            Status
+            <Card style={textArea}>
+                : {character.status}
+            </Card>
+            Gender
+            <Card style={textArea}>
+                : {character.gender}
+            </Card>
+            Species
+            <Card style={textArea}>
+                : {character.species}
+            </Card>
+            Origin
+            <Card style={textArea}>
+                : {character.origin? character.origin.name: ''}
+            </Card>
+            Last Seen
+            <Card style={textArea}>
+                : {character.location? character.location.name: ''}
+            </Card>
+            Record Creation Date/Time
+            <Card style={textArea}>
+                : {character.created}
             </Card>
         </Modal.Body>
         </Modal>
-    </div>
+    </>
   )
 }
 
