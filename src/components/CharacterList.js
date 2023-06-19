@@ -1,17 +1,18 @@
 import { CardGroup, Alert } from "react-bootstrap"
 import { useEffect, useState } from "react"
-import Pager from "./Pager"
+import CharacterDetails from "./CharacterDetails"
 import Character from "./Character"
-import axios from "axios"
+import Pager from "./Pager"
 import pLimit from 'p-limit';
+import axios from "axios"
 
 const limit = pLimit(1);
 
 const CharacterList = () => {
   const [characters, setCharacters] = useState([]);
   const [pagerInfo, setPagerInfo] = useState({});
+  const [modalChar, setModalChar] = useState();
   const [error, setError] = useState('');
-
 
   const fetchData = async(listPage) => {
     setError('');
@@ -51,10 +52,11 @@ const CharacterList = () => {
 
   return (
     <>
+        <CharacterDetails characterId={modalChar} setError={setError}/>
         <div style={scrollableY}>
           <CardGroup className="d-flex flex-wrap justify-content-around">
           {characters.map((char, index) => {
-              return <Character key={index} character={char}/>
+              return <Character key={index} character={char} setModalChar={setModalChar}/>
           })}
           </CardGroup>
         </div>

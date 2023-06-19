@@ -3,7 +3,7 @@ import { useState } from "react"
 import ContainerHeader from "./ContainerHeader";
 import styled from "styled-components"
 
-const Character = ({character}) => {
+const Character = ({character, setModalChar}) => {
 
   const [isHovered, setIsHovered] = useState(false);
 
@@ -60,6 +60,7 @@ const Character = ({character}) => {
       style = {hoverStyling}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
+      onClick={()=>setModalChar(character.id)}
     >
         <Card>
         <ContainerHeader title={character.name.toUpperCase()}/>
