@@ -63,7 +63,7 @@ const CharacterDetails = ({characterId, setModalChar, setError}) => {
 
   return (
     <>
-        <Modal style={transparent} show={showModal}>
+        <Modal style={transparent} show={showModal} onEscapeKeyDown={handleModalClose}>
         <Modal.Header style={modalHeader} closeButton onClick={handleModalClose}>
             <Modal.Title>Character Details</Modal.Title>
         </Modal.Header>
