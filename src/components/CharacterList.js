@@ -52,7 +52,7 @@ const CharacterList = () => {
 
   return (
     <>
-        <CharacterDetails characterId={modalChar} setError={setError}/>
+        <CharacterDetails characterId={modalChar} setModalChar={setModalChar} setError={setError}/>
         <div style={scrollableY}>
           <CardGroup className="d-flex flex-wrap justify-content-around">
           {characters.map((char, index) => {

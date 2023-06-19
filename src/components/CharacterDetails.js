@@ -2,7 +2,7 @@ import { useEffect, useState } from "react"
 import { Modal, Card } from "react-bootstrap"
 import axios from "axios"
 
-const CharacterDetails = ({characterId, setError}) => {
+const CharacterDetails = ({characterId, setModalChar, setError}) => {
 
   const [showModal, setShowModal] = useState(false)
   const [character, setCharacter] = useState({})
@@ -56,10 +56,15 @@ const CharacterDetails = ({characterId, setError}) => {
     }
   }
 
+  const handleModalClose = () => {
+    setShowModal(false);
+    setModalChar(undefined);
+  }
+
   return (
     <>
         <Modal style={transparent} show={showModal}>
-        <Modal.Header style={modalHeader} closeButton onClick={()=>setShowModal(false)}>
+        <Modal.Header style={modalHeader} closeButton onClick={handleModalClose}>
             <Modal.Title>Character Details</Modal.Title>
         </Modal.Header>
         <Modal.Body style={modalBody}>
