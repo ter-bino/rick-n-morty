@@ -49,7 +49,7 @@ const CharacterDetails = ({characterId, setModalChar, setError}) => {
         setCharacter(()=>response.data);
         setShowModal(()=>true);
     } catch (error) {
-        if(axios.isAxiosError(error))
+        if(axios.isAxiosError(error) && error.response)
             setError(`Unable to get details of character ${id}: ` + error.response.data.error);
         else
             setError(`Unable to get details of character ${id}: ` + error.message);

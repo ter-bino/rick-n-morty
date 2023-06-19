@@ -23,7 +23,7 @@ const CharacterList = () => {
           setPagerInfo(response.data.info);
       } catch(error) {
         console.log(error)
-        if (axios.isAxiosError(error)) {
+        if (axios.isAxiosError(error) && error.response) {
           setError(`Error fetching characters from page ${listPage}: ` + error.response.data.error);
         } else {
           setError(`Error fetching characters from page ${listPage}: ` + error.message);
@@ -33,7 +33,7 @@ const CharacterList = () => {
   }
 
   useEffect(() => {
-    fetchData();
+    fetchData(1);
   }, [])
 
   const scrollableY = {
