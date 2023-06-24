@@ -7,6 +7,32 @@ const CharacterDetails = ({characterId, setModalChar, setError}) => {
   const [showModal, setShowModal] = useState(false)
   const [character, setCharacter] = useState({})
 
+  const fetchCharacter = async (id) => {
+    try {
+        const response = await axios.get(`https://rickandmortyapi.com/api/character/${id}`);
+        setCharacter(()=>response.data);
+        setShowModal(()=>true);
+    } catch (error) {
+        if(axios.isAxiosError(error) && error.response)
+            setError(`Unable to get details of character ${id}: ` + error.response.data.error);
+        else
+            setError(`Unable to get details of character ${id}: ` + error.message);
+    }
+  }
+  
+  useEffect(()=>{
+    if(characterId) {
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+      fetchCharacter(characterId);
+    } else {
+      setShowModal(()=>false);
+    }
+  }, [characterId])
+
+  const handleModalClose = () => {
+    setShowModal(false);
+    setModalChar(undefined);
+  }
 
   const transparent = {
     backgroundColor: 'transparent',
@@ -33,32 +59,6 @@ const CharacterDetails = ({characterId, setModalChar, setError}) => {
     display: 'block',
     backgroundColor: '#441155',
     color: '#EEEEEE',
-  }
-
-  useEffect(()=>{
-    if(characterId) {
-      fetchCharacter(characterId);
-    } else {
-      setShowModal(()=>false);
-    }
-  }, [characterId])
-
-  const fetchCharacter = async (id) => {
-    try {
-        const response = await axios.get(`https://rickandmortyapi.com/api/character/${id}`);
-        setCharacter(()=>response.data);
-        setShowModal(()=>true);
-    } catch (error) {
-        if(axios.isAxiosError(error) && error.response)
-            setError(`Unable to get details of character ${id}: ` + error.response.data.error);
-        else
-            setError(`Unable to get details of character ${id}: ` + error.message);
-    }
-  }
-
-  const handleModalClose = () => {
-    setShowModal(false);
-    setModalChar(undefined);
   }
 
   return (

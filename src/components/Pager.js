@@ -17,7 +17,7 @@ const Pager = ({ totalPages, onPageJump, setError }) => {
   }, [jumpCount]);
 
   const handlePageJump = (newPage) => {
-    if(currentPage!=newPage) {
+    if(currentPage!==newPage) {
       if(jumpCount < 5) {
         setJumpCount(prevCount => prevCount + 1);
         onPageJump(newPage);

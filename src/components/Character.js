@@ -73,6 +73,7 @@ const Character = ({character, setModalChar}) => {
                             case "Alive": return greenText;
                             case "Dead": return redText;
                             case "unknown": return yellowText;
+                            default: return {};
                         }
                     })())}}>{character.status}</span>
                 </span>
